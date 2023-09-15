@@ -13,7 +13,6 @@ export class App extends Component {
     filter: '',
     
   }
-
   async componentDidMount() { 
     const savedContacts = await localStorage.getItem("contacts");
     
@@ -28,22 +27,24 @@ export class App extends Component {
       localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
     };
   };
-  createContact = values => {
+  
+  createContact = (values) => {
     const targetContact = this.state.contacts
       .map((cont) => cont.name.toLowerCase())
       .includes(values.name.toLowerCase());
-
-    if (targetContact) {
-      alert(`${values.name} is already in contacts`);
-    } else {
-      values.id = nanoid();
-      this.setState(prevState => {
-        return {
-          contacts: [...prevState.contacts, values],
-        };
-      });
+  
+      if (targetContact) {
+        alert(`${values.name} is already in contacts`);
+      } else {
+        values.id = nanoid();
+        this.setState(prevState => {
+          return {
+            contacts: [...prevState.contacts, values],
+          };
+        });
+    };
+    
   };
-};
 
 changeFilter = searchValue => {
   this.setState({filter: `${searchValue.target.value}`});
